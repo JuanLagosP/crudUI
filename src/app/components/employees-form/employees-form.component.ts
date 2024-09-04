@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { Subscriber, Subscription } from 'rxjs';
 import { Employee } from 'src/app/models/employee';
 import { EmployeeDto } from 'src/app/models/employee-dto';
 import { EmployeeService } from 'src/app/services/employee.service';
@@ -19,6 +18,9 @@ export class EmployeesFormComponent implements OnInit{
   isEmployeeSel: boolean = false;
   selEmployeeNum: string = ''; 
   selEmployee: Employee = new Employee();
+
+  minDate: Date = new Date('1925-01-01');
+  maxDate: Date = new Date();
 
   constructor(private _employeeService: EmployeeService, private _router: Router) {
     this.employeeForm = this.validateFields();

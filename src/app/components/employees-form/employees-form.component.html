@@ -70,18 +70,18 @@
         <div class="row mb-2">
             <div class="col-4">
                 <div class="form-floating mb-2">
-                    <input type="date" class="form-control" id="birthDate" name="birthDate" formControlName="birthDate">
-                    <label for="birthDate">Birth Date</label>
+                    <input type="date" class="form-control" id="birthDate" name="birthDate" formControlName="birthDate" [min]="minDate" [max]="maxDate">
+                    <label for="birthDate">Birthdate</label>
                 </div>
                 <div class="validation" *ngIf="employeeForm.get('birthDate')?.invalid && employeeForm.get('birthDate')?.touched">
                     <div *ngIf="employeeForm.get('birthDate')?.errors?.['required']">
-                        <span>Birth date is required</span>
+                        <span>Birthdate is required</span>
                     </div>
                 </div>
             </div>
             <div class="col-4">
                 <div class="form-floating mb-2">
-                    <input type="date" class="form-control" id="hireDate" name="hireDate" formControlName="hireDate">
+                    <input type="date" class="form-control" id="hireDate" name="hireDate" formControlName="hireDate" min="2024-01-01" [max]="maxDate">
                     <label for="hireDate">Hired On</label>
                 </div>
                 <div class="validation" *ngIf="employeeForm.get('hireDate')?.invalid && employeeForm.get('hireDate')?.touched">

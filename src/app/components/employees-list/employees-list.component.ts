@@ -12,13 +12,27 @@ import Swal from 'sweetalert2';
 export class EmployeesListComponent implements OnInit {
   employees: Employee[] = [];
 
+  page: number = 0;
+  size: number = 8;
+  totalElements: number = 0;
+  totalPages: number = 0;
+
   constructor(private _employeeService: EmployeeService, private _router: Router) {
   }
 
   private requestEmployees(): void {
-    this._employeeService.getEmployees().subscribe({
-      next: employees => this.employees = employees.filter(emp => emp.active)
+    this._employeeService.getEmployees(this.page, this.size).subscribe({
+      next: employees => {
+        this.employees = employees.content.filter(emp => emp.active);
+        this.totalElements = employees.totalElements;
+        this.totalPages = employees.totalPages;
+      }
     });
+  }
+
+  public onPageChange(page: number): void {
+    this.page = page;
+    this.requestEmployees();
   }
 
   public newEmployee(): void {

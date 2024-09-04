@@ -1,9 +1,10 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { BehaviorSubject, catchError, Observable, throwError } from 'rxjs';
 import { Employee } from '../models/employee';
 import { EmployeeDto } from '../models/employee-dto';
 import Swal from 'sweetalert2';
+import { Page } from '../models/page.model';
 
 @Injectable({
   providedIn: 'root'
@@ -76,8 +77,12 @@ export class EmployeeService {
     this.selEmployee$.next(employeeNumber);
   }
 
-  public getEmployees(): Observable<Employee[]> {
-    return this._http.get<Employee[]>(this.baseURL)
+  public getEmployees(page: number, size: number): Observable<Page<Employee>> {
+    let params = new HttpParams()
+      .set('page', page.toString())
+      .set('size', size.toString());
+
+    return this._http.get<Page<Employee>>(this.baseURL, {params: params})
       .pipe(catchError(this.handleError));
   }
 

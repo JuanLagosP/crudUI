@@ -1,0 +1,24 @@
+.btn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.btn svg {
+    width: 100%;
+    height: 100%;
+}
+
+#new-emp-wrapper {
+    margin-bottom: 5px;
+}
+
+#new-employee {
+    width: 100%;
+    height: 2rem;
+}
+
+#new-employee svg {
+    width: 10%;
+    height: 100%;
+}

@@ -1,1 +1,113 @@
-<p>employees-form works!</p>
+<div class="header" style="margin: 0;">
+    EMPLOYEE REGISTRATION
+</div>
+<div class="container">
+    <div class="row d-flex justify-content-end">
+        <div class="col-3">
+            <button id="go-back-btn" class="btn btn-secondary" (click)="goBack()">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-90deg-up" viewBox="0 0 16 16">
+                    <path fill-rule="evenodd" d="M4.854 1.146a.5.5 0 0 0-.708 0l-4 4a.5.5 0 1 0 .708.708L4 2.707V12.5A2.5 2.5 0 0 0 6.5 15h8a.5.5 0 0 0 0-1h-8A1.5 1.5 0 0 1 5 12.5V2.707l3.146 3.147a.5.5 0 1 0 .708-.708z"/>
+                </svg>
+                <span>GO BACK</span>
+            </button>
+        </div>
+    </div>
+    <form [formGroup]="employeeForm" (ngSubmit)="saveOrUpdateEmployee()">
+        <div class="row mb-2">
+            <div class="col-4">
+                <div class="form-floating">
+                    <input type="text" class="form-control" id="name" name="name" formControlName="name">
+                    <label for="name">Name</label>
+                </div>
+                <div class="validation" *ngIf="employeeForm.get('name')?.invalid && employeeForm.get('name')?.touched">
+                    <div *ngIf="employeeForm.get('name')?.errors?.['required']">
+                        <span>Name is required</span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-4">
+                <div class="form-floating">
+                    <input type="text" class="form-control" id="surname" name="surname" formControlName="surname">
+                    <label for="surname">Surname</label>
+                </div>
+                <div class="validation" *ngIf="employeeForm.get('surname')?.invalid && employeeForm.get('surname')?.touched">
+                    <div *ngIf="employeeForm.get('surname')?.errors?.['required']">
+                        <span>Surname is required</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row mb-2">
+            <div class="col-4">
+                <div class="form-floating mb-2">
+                    <input type="email" class="form-control" id="email" name="email" formControlName="email">
+                    <label for="email">Email</label>
+                </div>
+                <div class="validation" *ngIf="employeeForm.get('email')?.invalid && employeeForm.get('email')?.touched">
+                    <div *ngIf="employeeForm.get('email')?.errors?.['required']">
+                        <span>Email is required</span>
+                    </div>
+                    <div *ngIf="employeeForm.get('email')?.errors?.['pattern']">
+                        <span>Invalid email (ex: name&#64;email.com)</span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-4">
+                <div class="form-floating mb-2">
+                    <input type="tel" class="form-control" id="phone" name="phone" formControlName="phone">
+                    <label for="phone">Phone</label>
+                </div>
+                <div class="validation" *ngIf="employeeForm.get('phone')?.invalid && employeeForm.get('phone')?.touched">
+                    <div *ngIf="employeeForm.get('phone')?.errors?.['required']">
+                        <span>Phone is required</span>
+                    </div>
+                    <div *ngIf="employeeForm.get('phone')?.errors?.['pattern']">
+                        <span>Invalid phone number (ex: 123-456-7890)</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row mb-2">
+            <div class="col-4">
+                <div class="form-floating mb-2">
+                    <input type="date" class="form-control" id="birthDate" name="birthDate" formControlName="birthDate">
+                    <label for="birthDate">Birth Date</label>
+                </div>
+                <div class="validation" *ngIf="employeeForm.get('birthDate')?.invalid && employeeForm.get('birthDate')?.touched">
+                    <div *ngIf="employeeForm.get('birthDate')?.errors?.['required']">
+                        <span>Birth date is required</span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-4">
+                <div class="form-floating mb-2">
+                    <input type="date" class="form-control" id="hireDate" name="hireDate" formControlName="hireDate">
+                    <label for="hireDate">Hired On</label>
+                </div>
+                <div class="validation" *ngIf="employeeForm.get('hireDate')?.invalid && employeeForm.get('hireDate')?.touched">
+                    <div *ngIf="employeeForm.get('hireDate')?.errors?.['required']">
+                        <span>Hire date is required</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-4"></div>
+            <div class="col-4">
+                <button type="submit" class="btn btn-primary" *ngIf="!isEmployeeSel">
+                    <span>SUBMIT</span>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-send" viewBox="0 0 16 16">
+                        <path d="M15.854.146a.5.5 0 0 1 .11.54l-5.819 14.547a.75.75 0 0 1-1.329.124l-3.178-4.995L.643 7.184a.75.75 0 0 1 .124-1.33L15.314.037a.5.5 0 0 1 .54.11ZM6.636 10.07l2.761 4.338L14.13 2.576zm6.787-8.201L1.591 6.602l4.339 2.76z"/>
+                    </svg>
+                </button>
+                <button type="submit" class="btn btn-secondary" *ngIf="isEmployeeSel">
+                    <span>UPDATE</span>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-repeat" viewBox="0 0 16 16">
+                        <path d="M11.534 7h3.932a.25.25 0 0 1 .192.41l-1.966 2.36a.25.25 0 0 1-.384 0l-1.966-2.36a.25.25 0 0 1 .192-.41m-11 2h3.932a.25.25 0 0 0 .192-.41L2.692 6.23a.25.25 0 0 0-.384 0L.342 8.59A.25.25 0 0 0 .534 9"/>
+                        <path fill-rule="evenodd" d="M8 3c-1.552 0-2.94.707-3.857 1.818a.5.5 0 1 1-.771-.636A6.002 6.002 0 0 1 13.917 7H12.9A5 5 0 0 0 8 3M3.1 9a5.002 5.002 0 0 0 8.757 2.182.5.5 0 1 1 .771.636A6.002 6.002 0 0 1 2.083 9z"/>
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </form>
+</div>

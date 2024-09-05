@@ -24,7 +24,7 @@
 }
 
 #table-wrapper {
-    min-height: 385px;
+    min-height: 450px;
 }
 
 .pagination {
@@ -50,6 +50,18 @@
     background-color: cadetblue;
     color: white;
     font-weight: bold;
+}
+
+.page-btn:hover {
+    background-color: rgb(57, 117, 228);
+}
+
+.page-btn:active {
+    background-color: rgb(69, 116, 117);
+}
+
+.page-btn:disabled {
+    background-color: cadetblue;
 }
 
 .page-btn svg {

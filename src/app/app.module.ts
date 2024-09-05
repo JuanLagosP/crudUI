@@ -7,12 +7,14 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { EmployeesFormComponent } from './components/employees-form/employees-form.component';
 import { EmployeesListComponent } from './components/employees-list/employees-list.component';
+import { InputDirective } from './directives/input.directive';
 
 @NgModule({
   declarations: [
     AppComponent,
     EmployeesFormComponent,
-    EmployeesListComponent
+    EmployeesListComponent,
+    InputDirective
   ],
   imports: [
     AppRoutingModule,

@@ -13,80 +13,100 @@
         </div>
     </div>
     <form [formGroup]="employeeForm" (ngSubmit)="saveOrUpdateEmployee()">
-        <div class="row mb-2">
+        <div class="row mb-4">
             <div class="col-4">
                 <div class="form-floating">
-                    <input type="text" class="form-control" id="name" name="name" formControlName="name">
+                    <input type="text" class="form-control" id="name" name="name" formControlName="name"
+                    placeholder="Barry">
                     <label for="name">Name</label>
                 </div>
                 <div class="validation" *ngIf="employeeForm.get('name')?.invalid && employeeForm.get('name')?.touched">
                     <div *ngIf="employeeForm.get('name')?.errors?.['required']">
-                        <span>Name is required</span>
+                        <span>Name is required!</span>
+                    </div>
+                    <div *ngIf="employeeForm.get('name')?.errors?.['minlength']">
+                        <span>Name must be at least 2 characters long!</span>
                     </div>
                 </div>
             </div>
             <div class="col-4">
                 <div class="form-floating">
-                    <input type="text" class="form-control" id="surname" name="surname" formControlName="surname">
+                    <input type="text" class="form-control" id="surname" name="surname" formControlName="surname"
+                    placeholder="Allen">
                     <label for="surname">Surname</label>
                 </div>
                 <div class="validation" *ngIf="employeeForm.get('surname')?.invalid && employeeForm.get('surname')?.touched">
                     <div *ngIf="employeeForm.get('surname')?.errors?.['required']">
-                        <span>Surname is required</span>
+                        <span>Surname is required!</span>
+                    </div>
+                    <div *ngIf="employeeForm.get('surname')?.errors?.['minlength']">
+                        <span>Surname must be at least 2 characters long!</span>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="row mb-2">
+        <div class="row mb-4">
             <div class="col-4">
                 <div class="form-floating mb-2">
-                    <input type="email" class="form-control" id="email" name="email" formControlName="email">
+                    <input type="email" class="form-control" id="email" name="email" formControlName="email"
+                    placeholder="flash@starlabs.com">
                     <label for="email">Email</label>
                 </div>
                 <div class="validation" *ngIf="employeeForm.get('email')?.invalid && employeeForm.get('email')?.touched">
                     <div *ngIf="employeeForm.get('email')?.errors?.['required']">
-                        <span>Email is required</span>
+                        <span>Email is required!</span>
                     </div>
-                    <div *ngIf="employeeForm.get('email')?.errors?.['pattern']">
-                        <span>Invalid email (ex: name&#64;email.com)</span>
+                    <div *ngIf="employeeForm.get('email')?.errors?.['email']">
+                        <span>Invalid email!</span>
                     </div>
                 </div>
             </div>
             <div class="col-4">
                 <div class="form-floating mb-2">
-                    <input type="tel" class="form-control" id="phone" name="phone" formControlName="phone">
+                    <input type="tel" class="form-control" id="phone" name="phone" formControlName="phone"
+                    placeholder="123-456-7890">
                     <label for="phone">Phone</label>
                 </div>
                 <div class="validation" *ngIf="employeeForm.get('phone')?.invalid && employeeForm.get('phone')?.touched">
                     <div *ngIf="employeeForm.get('phone')?.errors?.['required']">
-                        <span>Phone is required</span>
+                        <span>Phone is required!</span>
                     </div>
                     <div *ngIf="employeeForm.get('phone')?.errors?.['pattern']">
-                        <span>Invalid phone number (ex: 123-456-7890)</span>
+                        <span>Phone must be 10 digits long!</span>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="row mb-2">
+        <div class="row mb-4">
             <div class="col-4">
                 <div class="form-floating mb-2">
-                    <input type="date" class="form-control" id="birthDate" name="birthDate" formControlName="birthDate" [min]="minDate" [max]="maxDate">
+                    <input type="date" class="form-control" id="birthDate" name="birthDate" formControlName="birthDate"
+                    placeholder="date">
                     <label for="birthDate">Birthdate</label>
                 </div>
                 <div class="validation" *ngIf="employeeForm.get('birthDate')?.invalid && employeeForm.get('birthDate')?.touched">
                     <div *ngIf="employeeForm.get('birthDate')?.errors?.['required']">
-                        <span>Birthdate is required</span>
+                        <span>Birthdate is required!</span>
+                    </div>
+                    <div *ngIf="employeeForm.get('birthDate')?.errors?.['tooOld']">
+                        <span>Sorry, you're too old for this job!</span>
+                    </div>
+                    <div *ngIf="employeeForm.get('birthDate')?.errors?.['validBirthdate']">
+                        <span>Employee must be of legal age (18 yo)!</span>
                     </div>
                 </div>
             </div>
             <div class="col-4">
                 <div class="form-floating mb-2">
-                    <input type="date" class="form-control" id="hireDate" name="hireDate" formControlName="hireDate" min="2024-01-01" [max]="maxDate">
+                    <input type="date" class="form-control" id="hireDate" name="hireDate" formControlName="hireDate">
                     <label for="hireDate">Hired On</label>
                 </div>
                 <div class="validation" *ngIf="employeeForm.get('hireDate')?.invalid && employeeForm.get('hireDate')?.touched">
                     <div *ngIf="employeeForm.get('hireDate')?.errors?.['required']">
-                        <span>Hire date is required</span>
+                        <span>Hire date is required!</span>
+                    </div>
+                    <div *ngIf="employeeForm.get('hireDate')?.errors?.['validHireDate']">
+                        <span>Hire date must be between 10 years ago and today!</span>
                     </div>
                 </div>
             </div>

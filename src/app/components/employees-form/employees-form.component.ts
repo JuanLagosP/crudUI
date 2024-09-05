@@ -1,6 +1,9 @@
+import { DatePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { birthdateValidator } from 'src/app/functions/birthdate-validator';
+import { hireDateValidator } from 'src/app/functions/hiredate-validator';
 import { Employee } from 'src/app/models/employee';
 import { EmployeeDto } from 'src/app/models/employee-dto';
 import { EmployeeService } from 'src/app/services/employee.service';
@@ -22,22 +25,36 @@ export class EmployeesFormComponent implements OnInit{
   minDate: Date = new Date('1925-01-01');
   maxDate: Date = new Date();
 
-  constructor(private _employeeService: EmployeeService, private _router: Router) {
+  constructor(private _employeeService: EmployeeService, private _fb: FormBuilder, 
+    private _router: Router) {
     this.employeeForm = this.validateFields();
   }
 
   private validateFields(): FormGroup {
-    const emailRegex = '^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$';
     const phoneRegex = '^[0-9]{10}$';
 
-    let validForm = new FormGroup({
-      name: new FormControl('', [Validators.required]),
-      surname: new FormControl('', [Validators.required]),
-      email: new FormControl('', [Validators.required, Validators.pattern(emailRegex)]),
-      phone: new FormControl('', [Validators.required, Validators.pattern(phoneRegex)]),
-      birthDate: new FormControl('', [Validators.required]),
-      hireDate: new FormControl('', [Validators.required]),
-    });
+    let validForm = this._fb.group({
+      name: ['', {
+        validators: [Validators.required, Validators.minLength(2)]
+      }],
+      surname: ['', {
+        validators: [Validators.required, Validators.minLength(2)]
+      }],
+      email: ['', {
+        validators: [Validators.required, Validators.email]
+      }],
+      phone: ['', {
+        validators: [Validators.required, Validators.pattern(phoneRegex)]
+      }],
+      birthDate: ['', {
+        validators: [Validators.required, birthdateValidator()],
+        updateOn: 'change'
+      }],
+      hireDate: ['', {
+        validators: [Validators.required, hireDateValidator()],
+        updateOn: 'change'
+      }]
+    })
 
     return validForm;
   }
